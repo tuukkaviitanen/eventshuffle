@@ -11,6 +11,7 @@
     "docker:prod": "prisma migrate deploy && bun run index.js"
   },
   "dependencies": {
+    "@elysiajs/swagger": "^1.3.0",
     "@prisma/client": "^6.10.1",
     "elysia": "1.3.5",
     "prisma": "^6.10.1"
