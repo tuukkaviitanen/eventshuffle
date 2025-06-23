@@ -43,3 +43,5 @@ package-lock.json
 
 .direnv
 *.http
+
+prisma/client

@@ -6,6 +6,11 @@ services:
       dockerfile: Dockerfile.prod
     ports:
       - 3000:3000
+    environment:
+      DATABASE_URL: postgresql://user:password@postgres/eventsuffle
+    depends_on:
+      postgres:
+        condition: service_healthy
   postgres:
     image: postgres:15
     restart: unless-stopped
@@ -15,3 +20,9 @@ services:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
       POSTGRES_DB: eventsuffle
+    healthcheck:
+      test:
+        ["CMD-SHELL", "pg_isready -U user -d eventsuffle -h localhost -p 5432"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

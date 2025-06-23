@@ -25,7 +25,15 @@
         devShells.default = pkgs.mkShell {
           packages = [
             (import bun-pkgs {inherit system;}).bun
+            pkgs.nodejs_22 # For Prisma setup
+            pkgs.prisma-engines
           ];
+
+          # Prisma Binary Locations
+          PRISMA_QUERY_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/query-engine";
+          # PRISMA_MIGRATION_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/migration-engine"; # Deprecated
+          PRISMA_INTOSPECTION_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/introspection-engine";
+          PRISMA_FORMAT_ENGINE_BINARY = "${pkgs.prisma-engines}/bin/prisma-fmt";
         };
       }
     );
