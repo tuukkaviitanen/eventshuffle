@@ -75,3 +75,12 @@ Running live at https://eventshuffle.tuukka.net
 - The latests published Docker image is automatically deployed to https://eventshuffle.tuukka.net
   - My custom hosting setup automatically polls new image versions using [watchtower](https://containrrr.dev/watchtower/) every 5 minutes
 - Overall, the foundations for the application are well made and it will be pleasant to maintain and scale further
+
+## Ideas for future
+
+- API tests to enforce API schema
+- API responses documented with Swagger
+- Ability to remove votes
+- Ability to see expanded results, for example, if none of the dates are full suitable for everyone, see which would be most suitable
+- Further optimized production Docker image size
+  - Current size, +400MB, could most likely be halved to increase deployment time
