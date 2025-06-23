@@ -1,4 +1,4 @@
-name: eventsuffle-prod
+name: eventshuffle-prod
 services:
   app:
     build:
@@ -7,7 +7,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      DATABASE_URL: postgresql://user:password@postgres/eventsuffle
+      DATABASE_URL: postgresql://user:password@postgres/eventshuffle
     depends_on:
       postgres:
         condition: service_healthy
@@ -19,10 +19,10 @@ services:
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
-      POSTGRES_DB: eventsuffle
+      POSTGRES_DB: eventshuffle
     healthcheck:
       test:
-        ["CMD-SHELL", "pg_isready -U user -d eventsuffle -h localhost -p 5432"]
+        ["CMD-SHELL", "pg_isready -U user -d eventshuffle -h localhost -p 5432"]
       interval: 5s
       timeout: 5s
       retries: 5

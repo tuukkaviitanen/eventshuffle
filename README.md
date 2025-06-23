@@ -1,4 +1,4 @@
-# Eventsuffle API
+# Eventshuffle API
 
 > HTTP API to help schedule events with friends. For a pre-interview exercise.
 
