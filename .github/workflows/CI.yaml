@@ -24,3 +24,5 @@ jobs:
         run: bun run lint:check
       - name: Build application
         run: bun run build
+      - name: Run tests
+        run: bun run test

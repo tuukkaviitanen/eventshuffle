@@ -4,7 +4,7 @@ import prisma from "../prisma";
 /**
  * Returns the date portion of the ISO DateTime string
  */
-const getISODateString = (date: Date) => date.toISOString().substring(0, 10);
+export const getISODateString = (date: Date) => date.toISOString().substring(0, 10);
 
 type CreateEventParams = {
   name: string;
