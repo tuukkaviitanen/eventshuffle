@@ -5,7 +5,7 @@
 ## Requirements
 
 - API contract provided [here](https://gist.github.com/VilluNikolaiV/44eae2829f7ece9c0d0657d502ed8c63)
-- Short development time (~2 hours)
+- Short development time (a few hours)
 - Easily maintainable and scalable
 - Tests
 - README with instructions for usage

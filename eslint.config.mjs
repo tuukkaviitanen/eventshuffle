@@ -14,5 +14,5 @@ export default defineConfig([
     languageOptions: { globals: globals.node },
   },
   tseslint.configs.recommended,
-  { ignores: ["**/build"] },
+  { ignores: ["**/build", "**/prisma/client"] },
 ]);

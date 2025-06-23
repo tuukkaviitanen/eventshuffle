@@ -1,16 +1,18 @@
 {
-  "name": "app",
-  "version": "1.0.50",
   "scripts": {
     "dev": "bun run --watch src/index.ts",
     "build": "bun build ./src/index.ts --outdir ./build --minify",
     "lint:fix": "eslint --fix",
     "lint:check": "eslint",
     "format:fix": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "docker:dev": "prisma migrate deploy && bun run dev",
+    "docker:prod": "prisma migrate deploy && bun run index.js"
   },
   "dependencies": {
-    "elysia": "1.3.5"
+    "@prisma/client": "^6.10.1",
+    "elysia": "1.3.5",
+    "prisma": "^6.10.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
