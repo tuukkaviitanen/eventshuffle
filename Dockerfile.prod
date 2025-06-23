@@ -11,7 +11,7 @@ RUN bun install --frozen-lockfile && \
     bunx prisma generate && \
     bun run build
 
-FROM oven/bun:1.2.16 AS final-stage
+FROM oven/bun:1.2.16-slim AS final-stage
 
 # Install Prisma dependencies
 RUN apt-get update && apt-get install libssl-dev ca-certificates -y
