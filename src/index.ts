@@ -1,8 +1,9 @@
 import { Elysia } from "elysia";
 import eventRoutes from "./routes/eventRoutes";
 import { InvalidParameterError, NotFoundError } from "./errors";
+import swagger from "@elysiajs/swagger";
 
-const app = new Elysia({ prefix: "/api/v1" })
+const api = new Elysia({ prefix: "/api/v1" })
   .onError(({ error, set, code }) => {
     if (error instanceof NotFoundError) {
       set.status = 404;
@@ -14,14 +15,32 @@ const app = new Elysia({ prefix: "/api/v1" })
       return { message: error.message };
     }
 
-    if (code !== "VALIDATION") {
+    if (code === "INTERNAL_SERVER_ERROR") {
       console.error(error);
 
       set.status = 500;
       return { message: "Internal error occurred" };
     }
   })
-  .use(eventRoutes)
+  .use(eventRoutes);
+
+const app = new Elysia()
+  .use(
+    swagger({
+      provider: "swagger-ui",
+      path: "/",
+      specPath: "/openapi",
+      documentation: {
+        info: {
+          title: "Eventshuffle",
+          license: { name: "MIT" },
+          version: "",
+          description: "For scheduling events with friends",
+        },
+      },
+    })
+  )
+  .use(api)
   .listen(3000);
 
 console.log(`API is running on port ${app.server?.port}`);
