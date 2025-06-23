@@ -14,7 +14,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
         name: t.String(),
         dates: t.Array(t.String({ format: "date" })),
       }),
-    }
+    },
   )
   .get(
     "/:eventId",
@@ -25,7 +25,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
       params: t.Object({
         eventId: t.Integer(),
       }),
-    }
+    },
   )
   .post(
     "/:eventId/vote",
@@ -40,7 +40,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
         name: t.String(),
         votes: t.Array(t.Date()),
       }),
-    }
+    },
   )
   .get(
     "/:eventId/results",
@@ -51,7 +51,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
       params: t.Object({
         eventId: t.Integer(),
       }),
-    }
+    },
   );
 
 export default eventRoutes;
