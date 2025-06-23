@@ -13,6 +13,7 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     languageOptions: { globals: globals.node },
   },
+  // @ts-ignore // This causes type errors
   tseslint.configs.recommended,
   { ignores: ["**/build", "**/prisma/client"] },
 ]);
