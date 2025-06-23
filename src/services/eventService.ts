@@ -80,12 +80,12 @@ const addVotes = async ({ eventId, name, votes }: AddVotesParams) => {
 
   for (const vote of votes) {
     const matchingDate = event.dates.find(
-      (date) => date.date.getTime() === vote.getTime()
+      (date) => date.date.getTime() === vote.getTime(),
     );
 
     if (!matchingDate) {
       throw new InvalidParameterError(
-        `${getISODateString(vote)} is not an option for ${event.name}`
+        `${getISODateString(vote)} is not an option for ${event.name}`,
       );
     }
 
@@ -106,7 +106,7 @@ const getResult = async (eventId: string) => {
     id,
     name,
     suitableDates: votes.filter((vote) =>
-      voters.every((voter) => vote.people.includes(voter))
+      voters.every((voter) => vote.people.includes(voter)),
     ),
   };
 };

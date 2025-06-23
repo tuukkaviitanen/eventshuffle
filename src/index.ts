@@ -15,6 +15,8 @@ const app = new Elysia({ prefix: "/api/v1" })
     }
 
     if (code !== "VALIDATION") {
+      console.error(error);
+
       set.status = 500;
       return { message: "Internal error occurred" };
     }
