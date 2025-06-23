@@ -3,6 +3,7 @@
   "version": "1.0.50",
   "scripts": {
     "dev": "bun run --watch src/index.ts",
+    "build": "bun build ./src/index.ts --outdir ./build --minify",
     "lint:fix": "eslint --fix",
     "lint:check": "eslint",
     "format:fix": "prettier . --write",
