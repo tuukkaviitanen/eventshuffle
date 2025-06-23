@@ -1,14 +1,13 @@
 import Elysia, { t } from "elysia";
+import eventService from "../services/eventService";
 
 const eventRoutes = new Elysia({ prefix: "/event" })
-  .get("/list", () => {
-    return [];
+  .get("/list", async () => {
+    return {events: await eventService.getEvents()}
   })
   .post(
     "/",
-    ({ body }) => {
-      return { body };
-    },
+    ({ body: {name, dates} }) => eventService.createEvent({name, dates: dates.map(date => new Date(date))}),
     {
       body: t.Object({
         name: t.String(),
