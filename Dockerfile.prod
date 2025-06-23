@@ -5,14 +5,22 @@ WORKDIR /app
 COPY package.json bun.lock ./
 
 COPY ./src ./src
+COPY ./prisma ./prisma
 
 RUN bun install --frozen-lockfile && \
+    bunx prisma generate && \
     bun run build
 
 FROM oven/bun:1.2.16 AS final-stage
 
+# Install Prisma dependencies
+RUN apt-get update && apt-get install libssl-dev ca-certificates -y
+
 WORKDIR /app
 
-COPY --from=build-stage /app/build/index.js ./
+RUN bun add -g prisma
 
-CMD [ "bun", "index.js" ]
+COPY --from=build-stage /app/build/index.js /app/package.json ./
+COPY --from=build-stage /app/prisma ./
+
+CMD [ "bun", "run", "docker:prod" ]

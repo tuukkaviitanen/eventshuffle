@@ -1,5 +1,8 @@
 FROM oven/bun:1.2.16
 
+# Install Prisma dependencies
+RUN apt-get update && apt-get install libssl-dev ca-certificates -y
+
 WORKDIR /app
 
 COPY package.json bun.lock ./
@@ -7,5 +10,8 @@ COPY package.json bun.lock ./
 RUN bun install --frozen-lockfile
 
 COPY ./src ./src
+COPY ./prisma ./prisma
 
-CMD [ "bun", "run", "dev" ]
+RUN bunx prisma generate
+
+CMD [ "bun", "run", "docker:dev" ]

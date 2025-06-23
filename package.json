@@ -7,7 +7,9 @@
     "lint:fix": "eslint --fix",
     "lint:check": "eslint",
     "format:fix": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "docker:dev": "prisma migrate deploy && bun run dev",
+    "docker:prod": "prisma migrate deploy && bun run index.js"
   },
   "dependencies": {
     "@prisma/client": "^6.10.1",
