@@ -17,9 +17,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
   )
   .get(
     "/:eventId",
-    ({ params: { eventId } }) => {
-      return { eventId };
-    },
+    ({ params: { eventId } }) => eventService.getSingleEvent(eventId),
     {
       params: t.Object({
         eventId: t.String({format: "uuid"}),

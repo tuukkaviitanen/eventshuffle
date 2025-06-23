@@ -1,4 +1,4 @@
-import { InvalidParameterError, NotFoundError, UnexpectedError } from "../errors";
+import { InvalidParameterError, NotFoundError } from "../errors";
 import prisma from "../prisma";
 
 /**
@@ -35,6 +35,25 @@ const getEvents = async () => {
   return events;
 };
 
+const getSingleEvent = async (eventId: string) => {
+    const event = await prisma.event.findUnique({
+    where: { id: eventId },
+    include: {
+      dates: {
+        select: { date: true, votes: { select: { name: true } }  },
+      },
+    },
+  });
+
+  if(!event) {
+    throw new NotFoundError("Event not found");
+  }
+
+  const mappedEvent = { id: event.id, name: event.name, dates: event.dates.map((date) => getISODateString(date.date)), votes: event.dates.filter(date => date.votes.length).map((date => ({date: getISODateString(date.date), people: date.votes.map(vote => vote.name)}))) };
+
+  return mappedEvent;
+}
+
 type AddVotesParams = { eventId: string; name: string; votes: Date[] };
 
 const addVotes = async ({ eventId, name, votes }: AddVotesParams) => {
@@ -65,22 +84,9 @@ const addVotes = async ({ eventId, name, votes }: AddVotesParams) => {
 
   await prisma.eventDateVote.createMany({ data: eventDateVotes });
 
-  const fullEvent = await prisma.event.findUnique({
-    where: { id: eventId },
-    include: {
-      dates: {
-        select: { date: true, votes: { select: { name: true } }  },
-      },
-    },
-  });
-
-  if(!fullEvent) {
-    throw new UnexpectedError("Event was unexpectedly removed from the database")
-  }
-
-  const mappedEvent = { id: fullEvent.id, name: fullEvent.name, dates: fullEvent.dates.map((date) => getISODateString(date.date)), votes: fullEvent.dates.filter(date => date.votes.length).map((date => ({date: getISODateString(date.date), people: date.votes.map(vote => vote.name)}))) };
-
-  return mappedEvent;
+  return getSingleEvent(eventId);
 };
 
-export default { createEvent, getEvents, addVotes };
+
+
+export default { createEvent, getEvents, addVotes, getSingleEvent };
