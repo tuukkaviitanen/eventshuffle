@@ -36,23 +36,33 @@ const getEvents = async () => {
 };
 
 const getSingleEvent = async (eventId: string) => {
-    const event = await prisma.event.findUnique({
+  const event = await prisma.event.findUnique({
     where: { id: eventId },
     include: {
       dates: {
-        select: { date: true, votes: { select: { name: true } }  },
+        select: { date: true, votes: { select: { name: true } } },
       },
     },
   });
 
-  if(!event) {
+  if (!event) {
     throw new NotFoundError("Event not found");
   }
 
-  const mappedEvent = { id: event.id, name: event.name, dates: event.dates.map((date) => getISODateString(date.date)), votes: event.dates.filter(date => date.votes.length).map((date => ({date: getISODateString(date.date), people: date.votes.map(vote => vote.name)}))) };
+  const mappedEvent = {
+    id: event.id,
+    name: event.name,
+    dates: event.dates.map((date) => getISODateString(date.date)),
+    votes: event.dates
+      .filter((date) => date.votes.length)
+      .map((date) => ({
+        date: getISODateString(date.date),
+        people: date.votes.map((vote) => vote.name),
+      })),
+  };
 
   return mappedEvent;
-}
+};
 
 type AddVotesParams = { eventId: string; name: string; votes: Date[] };
 
@@ -87,6 +97,18 @@ const addVotes = async ({ eventId, name, votes }: AddVotesParams) => {
   return getSingleEvent(eventId);
 };
 
+const getResult = async (eventId: string) => {
+  const { id, name, votes } = await getSingleEvent(eventId);
 
+  const voters = Array.from(new Set(votes.flatMap((vote) => vote.people)));
 
-export default { createEvent, getEvents, addVotes, getSingleEvent };
+  return {
+    id,
+    name,
+    suitableDates: votes.filter((vote) =>
+      voters.every((voter) => vote.people.includes(voter))
+    ),
+  };
+};
+
+export default { createEvent, getEvents, addVotes, getSingleEvent, getResult };
