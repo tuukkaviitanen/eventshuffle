@@ -38,7 +38,7 @@ const app = new Elysia()
           description: "For scheduling events with friends",
         },
       },
-    })
+    }),
   )
   .use(api)
   .listen(3000);
