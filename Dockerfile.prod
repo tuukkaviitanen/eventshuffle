@@ -1,0 +1,18 @@
+FROM oven/bun:1.2.16 AS build-stage
+
+WORKDIR /app
+
+COPY package.json bun.lock ./
+
+COPY ./src ./src
+
+RUN bun install --frozen-lockfile && \
+    bun run build
+
+FROM oven/bun:1.2.16 AS final-stage
+
+WORKDIR /app
+
+COPY --from=build-stage /app/build/index.js ./
+
+CMD [ "bun", "index.js" ]
