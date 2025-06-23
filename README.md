@@ -2,6 +2,28 @@
 
 > HTTP API to help schedule events with friends. For a pre-interview exercise.
 
+Running live at https://eventshuffle.tuukka.net
+
+## How to run locally
+
+### Development build with live-reload
+
+1. Make sure [Docker](https://www.docker.com/) is installed
+2. Run `docker compose -f docker-compose.dev.yaml up`
+3. Open https://localhost:3000 in your browser
+
+#### For database changes
+
+- `bunx prisma generate` for generating the Prisma client locally
+- `bunx prisma migrate dev` for generating new migrations after Prisma schema changes
+- `bunx prisma migrate deploy` for running existing migrations
+
+### Production build
+
+1. Make sure [Docker](https://www.docker.com/) is installed
+2. Run `docker compose -f docker-compose.prod.yaml up`
+3. Open http://localhost:3000 in your browser
+
 ## Requirements
 
 - API contract provided [here](https://gist.github.com/VilluNikolaiV/44eae2829f7ece9c0d0657d502ed8c63)
@@ -40,3 +62,16 @@
 - Deploying the application to my own hosting environment
 
 \* Based on findings from my thesis: [A comparative analysis of modern programming languages in REST API development](https://www.theseus.fi/handle/10024/884660)
+
+## Current state
+
+- The API contract is fully implemented with persisting storage
+- User inputs are validated with descriptive validation errors
+- Semi-automatically generated [Swagger UI](https://swagger.io/tools/swagger-ui/) for API documentation
+  - Still partial as only the endpoints and parameters are documented
+- Some unit tests for a helper function
+  - API tests not yet implemented due to time constraints
+- CI pipeline verifies code style, code formatting, build and tests. Production Docker images are versioned and published to [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry).
+- The latests published Docker image is automatically deployed to https://eventshuffle.tuukka.net
+  - My custom hosting setup automatically polls new image versions using [watchtower](https://containrrr.dev/watchtower/) every 5 minutes
+- Overall, the foundations for the application are well made and it will be pleasant to maintain and scale further
