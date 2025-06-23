@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - 3000:3000
+    volumes:
+      - ./src:/app/src
   postgres:
     image: postgres:15
     restart: unless-stopped
