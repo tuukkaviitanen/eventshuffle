@@ -6,6 +6,7 @@
     "lint:check": "eslint",
     "format:fix": "prettier . --write",
     "format:check": "prettier . --check",
+    "test": "bun test --coverage",
     "docker:dev": "prisma migrate deploy && bun run dev",
     "docker:prod": "prisma migrate deploy && bun run index.js"
   },
