@@ -51,9 +51,9 @@ Running live at https://eventshuffle.tuukka.net
   - A strong alternative that would make sense for this project would be [SQLite](https://www.sqlite.org/), which would create a database file in the application's local file-system
     - Wouldn't have to set up a completely separate database instance
     - Since the state would be stored locally in the application image, horizontal scaling, as in running multiple instances of the server at the same time to enhance availability, would be off the table
-    - This choice could be considered as premature optimization, **but** room for scalability was an explicit requirement
-
   - Another alternative would be [MongoDB](https://www.mongodb.com/), as it allows nested data structures, which would be useful in this project. However, for future development, features like user management would be easier to implement with a relational database, due to more advanced relation handling.
+  - This choice could be considered as premature optimization, **but** room for scalability was an explicit requirement
+
 - Using [ESLint](https://eslint.org/) for enforcing popular coding styles and [Prettier](https://prettier.io/) for code formatting
 - Creating API tests with Bun's and Elysia's testing tools to enforce the API schema
 - Using a service layer to separate the API from the business logic
