@@ -2,23 +2,17 @@ import Elysia, { t } from "elysia";
 import eventService from "../services/eventService";
 
 const eventRoutes = new Elysia({ prefix: "/event" })
-  .get(
-    "/list",
-    async () => {
-      return { events: await eventService.getEvents() };
-    },
-    {
-      response: t.Object({
-        events: t.Array(
-          t.Object({
-            id: t.String({ format: "uuid" }),
-            name: t.String(),
-          })
-        ),
-      }),
-      tags: ["Events"],
-    }
-  )
+  .get("/list", async () => ({ events: await eventService.getEvents() }), {
+    response: t.Object({
+      events: t.Array(
+        t.Object({
+          id: t.String({ format: "uuid" }),
+          name: t.String(),
+        })
+      ),
+    }),
+    tags: ["Events"],
+  })
   .post(
     "/",
     ({ body: { name, dates } }) =>
