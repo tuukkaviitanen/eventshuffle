@@ -8,7 +8,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
         t.Object({
           id: t.String({ format: "uuid" }),
           name: t.String(),
-        })
+        }),
       ),
     }),
     tags: ["Events"],
@@ -29,7 +29,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
         id: t.String({ format: "uuid" }),
       }),
       tags: ["Events"],
-    }
+    },
   )
   .get(
     "/:eventId",
@@ -46,11 +46,11 @@ const eventRoutes = new Elysia({ prefix: "/event" })
           t.Object({
             date: t.String({ format: "date" }),
             people: t.Array(t.String()),
-          })
+          }),
         ),
       }),
       tags: ["Events"],
-    }
+    },
   )
   .post(
     "/:eventId/vote",
@@ -76,11 +76,11 @@ const eventRoutes = new Elysia({ prefix: "/event" })
           t.Object({
             date: t.String({ format: "date" }),
             people: t.Array(t.String()),
-          })
+          }),
         ),
       }),
       tags: ["Events"],
-    }
+    },
   )
   .get(
     "/:eventId/results",
@@ -96,11 +96,11 @@ const eventRoutes = new Elysia({ prefix: "/event" })
           t.Object({
             date: t.String({ format: "date" }),
             people: t.Array(t.String()),
-          })
+          }),
         ),
       }),
       tags: ["Events"],
-    }
+    },
   );
 
 export default eventRoutes;
