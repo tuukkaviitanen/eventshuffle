@@ -16,6 +16,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
           })
         ),
       }),
+      tags: ["Events"],
     }
   )
   .post(
@@ -33,6 +34,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
       response: t.Object({
         id: t.String({ format: "uuid" }),
       }),
+      tags: ["Events"],
     }
   )
   .get(
@@ -53,6 +55,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
           })
         ),
       }),
+      tags: ["Events"],
     }
   )
   .post(
@@ -82,6 +85,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
           })
         ),
       }),
+      tags: ["Events"],
     }
   )
   .get(
@@ -101,6 +105,7 @@ const eventRoutes = new Elysia({ prefix: "/event" })
           })
         ),
       }),
+      tags: ["Events"],
     }
   );
 
